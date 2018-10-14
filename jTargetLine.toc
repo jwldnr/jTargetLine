@@ -1,0 +1,7 @@
+## Interface: 80000
+## Title: jTargetLine
+## Notes: Draws a line to your target
+## Version: 1.0
+## Author: jwldnr
+
+jTargetLine.lua
