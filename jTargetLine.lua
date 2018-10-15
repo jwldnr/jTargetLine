@@ -45,12 +45,8 @@ function Addon:AnchorLine(nameplate)
     self.line:SetStartPoint("CENTER", self.frame)
     self.line:SetEndPoint("CENTER", nameplate, 0, LINE_OFFSET)
 
-    -- self:ShowLine()
-
     self.lastNameplate = nameplate
   end
-
-  self:ToggleLine(nameplate ~= nil)
 end
 
 function Addon:SetupLine()
@@ -68,14 +64,18 @@ function Addon:PLAYER_LOGIN()
   self.frame:UnregisterEvent("PLAYER_LOGIN")
 end
 
-function Addon:PLAYER_TARGET_CHANGED()
+function Addon:UpdateLine()
   local nameplate = GetNamePlateForUnit(UNIT_TARGET, issecure())
   self:AnchorLine(nameplate)
+  self:ToggleLine(nameplate ~= nil)
+end
+
+function Addon:PLAYER_TARGET_CHANGED()
+  self:UpdateLine()
 end
 
 function Addon:NAME_PLATE_UNIT_ADDED()
-  local nameplate = GetNamePlateForUnit(UNIT_TARGET, issecure())
-  self:AnchorLine(nameplate)
+  self:UpdateLine()
 end
 
 function Addon:NAME_PLATE_UNIT_REMOVED()
@@ -99,7 +99,7 @@ do
 
   function Addon:Load()
     self.frame = CreateFrame("Frame", nil)
-    self.frame:SetPoint("CENTER", "UIParent", "CENTER")
+    self.frame:SetPoint("CENTER", "UIParent")
 
     self.frame:SetHeight(LINE_THICKNESS)
     self.frame:SetWidth(LINE_THICKNESS)
