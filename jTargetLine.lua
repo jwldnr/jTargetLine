@@ -8,7 +8,7 @@ local issecure = _G.issecure
 
 local UNIT_TARGET = "target"
 local LINE_THICKNESS = 3
-local LINE_OFFSET = -10
+local LINE_OFFSET = -25
 
 function Addon:ShowLine()
   if (not self.line:IsVisible()) then
